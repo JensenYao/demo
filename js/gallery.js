@@ -2,13 +2,13 @@ jQuery(function ($) {
 	var G = {
 		active: false,
 		/*
-		 * Calls SimpleModal with appropriate options 使用适当的选项调用SimpleModal
+		 * 使用适当的选项调用SimpleModal
 		 */
 		init: function () {
 			G.images = $('.flickr_badge_image a');
 			G.images.click(function () {
 				G.current_idx = G.images.index(this);
-				console.log(G);
+				// console.log(G.current_idx);
 				$(G.create()).modal({
 					closeHTML: '',
 					overlayId: 'gallery-overlay',
@@ -46,8 +46,8 @@ jQuery(function ($) {
 				</div>");
 		},
 		/*
-		 * SimpleModal callback to create the SimpleModal回调来创建
-		 * viewer and open it with animations 查看器并使用动画打开它
+		 * SimpleModal回调来创建
+		 * 查看器并使用动画打开它
 		 */
 		open: function (d) {
 			G.container = d.container[0];
@@ -73,8 +73,8 @@ jQuery(function ($) {
 			});
 		},
 		/*
-		 * SimpleModal callback to close the SimpleModal回调来关闭
-		 * viewer with animations
+		 * SimpleModal回调来关闭
+		 * 
 		 */
 		close: function (d) {
 			var self = this;
@@ -92,13 +92,13 @@ jQuery(function ($) {
 			});
 		},
 		/*
-		 * Display the previous/next image  显示前一个/下一个映像
+		 * 显示前一个/下一个映像
 		 */
 		browse: function (link) {
 			G.current_idx = $(link).parent().is('#gallery-next') ? (G.current_idx + 1) : (G.current_idx - 1);
 			G.display();
 		},
-		/* display the requested image and animate the height/width of the container 显示所请求的图像，并将容器的高度/宽度进行动画化*/
+		/* 显示所请求的图像，并将容器的高度/宽度进行动画化*/
 		display: function () {
 			G.controls.hide();
 			G.meta.slideUp(300, function () {
@@ -151,7 +151,7 @@ jQuery(function ($) {
 			}
 		},
 		/* 
-		 * Show the image and then the controls and meta  显示图像，然后控制和元数据
+		 * 显示图像，然后控制和元数据
 		 */
 		show: function (img) {
 			img.show();
@@ -161,7 +161,7 @@ jQuery(function ($) {
 			});
 		},
 		/*
-		 * Show the image controls; previous and next  显示图像控制;前一个和后一个
+		 * 显示图像控制;前一个和后一个
 		 */
 		showControls: function () {
 			G.next.hide().removeClass('disabled');
@@ -206,7 +206,7 @@ jQuery(function ($) {
 			);
 		},
 		/*
-		 * Show the image meta; title, image x of x and the close X  显示图像元;标题，x的图像x和关闭的x
+		 * 显示图像元;标题，x的图像x和关闭的x
 		 */
 		showMeta: function () {
 			var link = G.images.eq(G.current_idx).clone(),
@@ -220,7 +220,7 @@ jQuery(function ($) {
 			});
 		},
 		/*
-		 * Unbind gallery control events 解开画廊控制事件
+		 * 解开画廊控制事件
 		 */
 		unbind: function () {
 			$('a', G.controls[0]).unbind('click.gallery');
