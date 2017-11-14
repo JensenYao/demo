@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>
+            奢易拍
+        </title>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="format-detection" content="telephone=no">
+        <link rel="stylesheet" href="./css/x-admin.css" media="all">
+        <style>
+            .feile{
+                padding: 0;
+                width: 80px;
+                height: 26px;
+                line-height: 26px;
+                border-radius: 5px;
+                text-indent:10px;
+                border: 0;
+            }
+            .addOrder{
+                border: 1px solid #b5b0b0;
+                cursor: pointer;
+            }
+            .layui-table th{
+                text-align: center;
+            }
+            #x-link img{
+                width: 25px;
+                height: 25px;
+                cursor: pointer;
+            }
+            .layui-btn{
+                height: 30px;
+                line-height: 30px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="x-nav">
+            <span class="layui-breadcrumb">
+                <a><cite>首页</cite></a>
+                <a><cite>社区管理</cite></a>
+                <a><cite>社区订单管理</cite></a>
+            </span>
+            <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"  href="javascript:location.replace(location.href);" title="刷新"><i class="layui-icon" style="line-height:30px">ဂ</i></a>
+        </div>
+        <div class="x-body">
+            <xblock style="height:40px"><span class="x-right" style="line-height:40px">共有数据：88 条</span></xblock>
+            <table class="layui-table">
+                <thead>
+                    <tr>
+                        <th>
+                            序号
+                        </th>
+                        <th>
+                            时间
+                        </th>
+                        <th>
+                            用户手机号
+                        </th>
+                        <th>
+                            订单状态
+                        </th>
+                        <th>
+                            价格
+                        </th>
+                        <th>
+                            鉴定师
+                        </th>
+                        <th>
+                            真伪
+                        </th>
+                        <th>
+                            鉴定图片
+                        </th>
+                        <th>
+                            系统
+                        </th>
+                        <th>
+                            操作
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="x-link">
+                    <tr>
+                        <td>
+                            1
+                        </td>
+                        <td>
+                            2017-01-31
+                        </td>
+                        <td>
+                            123
+                        </td>
+                        <td >
+                            <select name="city" lay-verify="" disabled="disabled" class="feile">
+                                <option value="">鉴定中</option>
+                                <option value="">已完成</option>
+                                <option value="">退款中</option>
+                                <option value="">已退款</option>
+                            </select>
+                        </td>
+                        <td >
+                            450
+                        </td>
+                        <td >
+                            <select name="city" lay-verify="" disabled="disabled" class="feile">
+                                <option value="">老刘</option>
+                                <option value="">老王</option>
+                                <option value="">老李</option>
+                                <option value="">老张</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="city" lay-verify="" disabled="disabled" class="feile">
+                                <option value="">真品</option>
+                                <option value="">假货</option>
+                            </select>
+                        </td>
+                        <td>
+                            <img src="./images/timg.jpg" alt="">
+                        </td>
+                        <td >
+                            苹果
+                        </td>
+                        <td class="td-manage">
+                            <button class="layui-btn" onclick="edit($('#x-link').children('tr').eq(0))">修改</button>
+                            <button class="layui-btn" onclick="keep($('#x-link').children('tr').eq(0))">保存</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="outerdiv" style="position:fixed;top:0;left:0;background:rgba(0,0,0,0.7);z-index:2;width:100%;height:100%;display:none;"><div id="innerdiv" style="position:absolute;"><img id="bigimg" style="border:5px solid #fff;" src="" /></div></div>  
+            <div id="page"></div>
+        </div>
+        <script src="./js/jquery.min.js" charset="utf-8"></script>
+        <script src="./lib/layui/layui.js" charset="utf-8"></script>
+        <script src="./js/x-layui.js" charset="utf-8"></script>
+        <script src="./js/slimg.js"></script>
+        <script>
+            layui.use(['element','laypage','layer','form'], function(){
+                $ = layui.jquery;//jquery
+                lement = layui.element();//面包导航
+                laypage = layui.laypage;//分页
+                layer = layui.layer;//弹出层
+                form = layui.form();//弹出层
+                laypage({
+                    cont: 'page',
+                    pages: 100,
+                    first: 1,
+                    last: 100,
+                    prev: '<em>«</em>',
+                    next: '<em>»</em>'
+                });
+
+          })
+            //批量删除提交
+             function delAll () {
+                layer.confirm('确认要删除吗？',function(index){
+                    //捉到所有被选中的，发异步进行删除
+                    layer.msg('删除成功', {icon: 1});
+                });
+             }
+            /*编辑*/
+            function edit($box){
+                $box.find('select').attr('disabled',false).addClass('addOrder');
+            }
+
+            /*保存*/
+            function keep($box){
+                $box.find('select').attr('disabled',true).removeClass('addOrder');
+            }
+
+            /*删除*/
+            function commemt_del(obj,id){
+                layer.confirm('确认要删除吗？',function(index){
+                    //发异步删除数据
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!',{icon:1,time:1000});
+                });
+            }
+            
+        </script>
+        <script>
+            /*缩略图*/
+            $(function(){  
+                $("img").click(function(){  
+                    var _this = $(this);//将当前的pimg元素作为_this传入函数  
+                    imgShow("#outerdiv", "#innerdiv", "#bigimg", _this);  
+                });  
+            }); 
+        </script>
+        <script>
+            var _hmt = _hmt || [];
+            (function() {
+                  var hm = document.createElement("script");
+                  hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+                  var s = document.getElementsByTagName("script")[0];
+                  s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    </body>
+</html>
